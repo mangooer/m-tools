@@ -1,7 +1,8 @@
 {
   "name": "m-tools",
+  "publisher": "mangooer",
   "displayName": "m-tools",
-  "description": "开发工具箱，时间戳，json，文本处理",
+  "description": "开发工具箱，时间戳，json，文本处理 | Development toolkit, timestamp, json, text processing",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.93.1"
@@ -10,13 +11,20 @@
     "Other"
   ],
   "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mangooer/m-tools.git"
+  },
   "contributes": {
     "viewsContainers": {
       "activitybar": [
         {
           "id": "mToolsContainer",
           "title": "M Tools",
-          "icon": "./src/resource/images/icon.png"
+          "icon": "./resource/images/icon.png"
         }
       ]
     },
@@ -55,7 +63,7 @@
       {
         "id": "mToolsContainer",
         "title": "M Tools",
-        "icon": "./src/resource/images/icon.png"
+        "icon": "./resource/images/icon.png"
       }
     ]
   },

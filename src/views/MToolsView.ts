@@ -12,12 +12,12 @@ class MToolsViewProvider implements vscode.WebviewViewProvider {
 	) {
 		webviewView.webview.options = {
 			enableScripts: true,
-			localResourceRoots: [vscode.Uri.joinPath(this._extensionUri, 'src', 'resource')]
+			localResourceRoots: [vscode.Uri.joinPath(this._extensionUri, 'resource')]
 		};
 
-        const scriptUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'resource', 'js', 'MTools.js'));
-        const styleUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'resource', 'css', 'MTools.css'));
-		const copyIconUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'resource', 'images', 'copy.png'));
+        const scriptUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resource', 'js', 'MTools.js'));
+        const styleUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resource', 'css', 'MTools.css'));
+		const copyIconUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resource', 'images', 'copy.png'));
 		const localizedText = getLocalizedText();
 		const timezones = Intl.supportedValuesOf('timeZone');
 
