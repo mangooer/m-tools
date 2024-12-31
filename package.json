@@ -1,0 +1,70 @@
+{
+  "name": "m-tools",
+  "displayName": "m-tools",
+  "description": "开发工具箱，时间戳，json，文本处理",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.93.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "mToolsContainer",
+          "title": "M Tools",
+          "icon": "./src/resource/images/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "mToolsContainer": [
+        {
+          
+          "id": "mToolsView",
+          "name": "M Tools",
+          "type": "webview"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.93.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "eslint": "^9.16.0",
+    "typescript": "^5.7.2",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  },
+  "viewsContainers": {
+    "activitybar": [
+      {
+        "id": "mToolsContainer",
+        "title": "M Tools",
+        "icon": "./src/resource/images/icon.png"
+      }
+    ]
+  },
+  "views": {
+    "mToolsContainer": [
+      {
+        "id": "mToolsView",
+        "name": "M Tools View"
+      }
+    ]
+  }
+}
