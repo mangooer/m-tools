@@ -1,9 +1,9 @@
 {
-  "name": "m-tools",
+  "name": "developer-tools",
   "publisher": "mangooer",
-  "displayName": "m-tools",
+  "displayName": "developer-tools",
   "description": "开发工具箱，时间戳，json，文本处理 | Development toolkit, timestamp, json, text processing",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.93.1"
   },
@@ -16,24 +16,23 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mangooer/m-tools.git"
+    "url": "https://github.com/mangooer/developer-tools.git"
   },
   "contributes": {
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "mToolsContainer",
-          "title": "M Tools",
+          "id": "developerToolsContainer",
+          "title": "Developer Tools",
           "icon": "./resource/images/icon.png"
         }
       ]
     },
     "views": {
-      "mToolsContainer": [
+      "developerToolsContainer": [
         {
-          
-          "id": "mToolsView",
-          "name": "M Tools",
+          "id": "developerToolsView",
+          "name": "Developer Tools",
           "type": "webview"
         }
       ]
@@ -61,18 +60,31 @@
   "viewsContainers": {
     "activitybar": [
       {
-        "id": "mToolsContainer",
-        "title": "M Tools",
-        "icon": "./resource/images/icon.png"
+        "id": "developerToolsContainer",
+        "title": "Developer Tools",
+        "icon": "resource/images/icon.png"
       }
     ]
   },
   "views": {
-    "mToolsContainer": [
+    "developerToolsContainer": [
       {
-        "id": "mToolsView",
-        "name": "M Tools View"
+        "id": "developerToolsView",
+        "name": "Developer Tools View"
       }
     ]
-  }
+  },
+  "keywords": [
+    "developer-tools",
+    "developer tools",
+    "developer",
+    "tools",
+    "timestamp",
+    "json",
+    "text",
+    "base64",
+    "url",
+    "utf8"
+  ],
+  "icon": "resource/images/icon.png"
 }

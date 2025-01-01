@@ -1,12 +1,12 @@
 import * as vscode from 'vscode';
-import MToolsViewProvider from './views/MToolsView';
+import DeveloperToolsViewProvider from './views/DeveloperToolsView';
 
 export function activate(context: vscode.ExtensionContext) {
-	const mToolsViewProvider = new MToolsViewProvider(context.extensionUri);
+	const developerToolsViewProvider = new DeveloperToolsViewProvider(context.extensionUri);
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider(
-			MToolsViewProvider.viewType,
-			mToolsViewProvider
+			DeveloperToolsViewProvider.viewType,
+			developerToolsViewProvider
 		)
 	);
 }

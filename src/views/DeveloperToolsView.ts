@@ -1,9 +1,9 @@
 import * as vscode from "vscode";
 
-class MToolsViewProvider implements vscode.WebviewViewProvider {
+class DeveloperToolsViewProvider implements vscode.WebviewViewProvider {
 	constructor(private readonly _extensionUri: vscode.Uri) {}
 
-	public static readonly viewType = "mToolsView";
+	public static readonly viewType = "developerToolsView";
 
 	public resolveWebviewView(
 		webviewView: vscode.WebviewView,
@@ -15,8 +15,8 @@ class MToolsViewProvider implements vscode.WebviewViewProvider {
 			localResourceRoots: [vscode.Uri.joinPath(this._extensionUri, 'resource')]
 		};
 
-        const scriptUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resource', 'js', 'MTools.js'));
-        const styleUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resource', 'css', 'MTools.css'));
+        const scriptUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resource', 'js', 'DeveloperTools.js'));
+        const styleUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resource', 'css', 'DeveloperTools.css'));
 		const copyIconUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resource', 'images', 'copy.png'));
 		const localizedText = getLocalizedText();
 		const timezones = Intl.supportedValuesOf('timeZone');
@@ -26,13 +26,29 @@ class MToolsViewProvider implements vscode.WebviewViewProvider {
 		// 在HTML中动态生成时区选项，并默认选择当前时区
 		const timezoneOptions = timezones.map(tz => `<option value="${tz}" ${tz === currentTimeZone ? 'selected' : ''}>${tz}</option>`).join('');
 
+		const formatSelectHtml = `
+			<label>${localizedText.inputFormat} ：</label>
+			<input type="text" id="formatInput" value="YYYY-MM-DD HH:mm:ss" 
+				   style="width: 60%; 
+						  padding: 5px; 
+						  font-family: var(--vscode-font-family); 
+						  font-size: calc(var(--vscode-font-size) - 1px); 
+						  color: var(--vscode-input-foreground); 
+						  background-color: var(--vscode-input-background); 
+						  border: 1px solid var(--vscode-input-border); 
+						  border-radius: 4px; 
+						  margin-bottom: 15px; 
+						  margin-top: 15px;
+                          height: 30px;">
+		`;
+
 		webviewView.webview.html = `
         <!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>mTools</title>
+            <title>Developer Tools</title>
             <link rel="stylesheet" href="${styleUri}">
             <style>
                 .tab {
@@ -95,13 +111,7 @@ class MToolsViewProvider implements vscode.WebviewViewProvider {
                     <label>${localizedText.currentTimestampMilliseconds}<span id="timestampMilliseconds"></span></label>
                     <div id="copyTimestampMilliseconds" class="copy-icon"><img src="${copyIconUri}"></div>
                 </div>
-                <label>${localizedText.selectFormat}</label>
-                <select id="formatSelect" style="width: 40%; padding: 5px; font-family: var(--vscode-font-family); font-size: calc(var(--vscode-font-size) - 1px); color: var(--vscode-dropdown-foreground); background-color: var(--vscode-dropdown-background); border: 1px solid var(--vscode-dropdown-border); border-radius: 4px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); position: static; top: 10px; right: 10px; z-index: 100; margin-bottom: 15px; margin-top: 15px;">
-                    <option value="YYYY-MM-DD HH:mm:ss">YYYY-MM-DD HH:mm:ss</option>
-                    <option value="YYYY/MM/DD hh:mm:ss A">YYYY/MM/DD hh:mm:ss A</option>
-                    <option value="DD-MM-YYYY HH:mm">DD-MM-YYYY HH:mm</option>
-                    <option value="MM/DD/YYYY hh:mm A">MM/DD/YYYY hh:mm A</option>
-                </select>
+                ${formatSelectHtml}
                 <div>
                     <label>${localizedText.currentTime}<span id="formattedTime"></span></label>
                     <div id="copyFormattedTime" class="copy-icon"><img src="${copyIconUri}"></div>
@@ -202,8 +212,8 @@ function getLocalizedText() {
 		generatedString: isChinese ? '生成的字符串' : 'Generated String',
 		inputUtf8Encode: isChinese ? '输入文本进行UTF8编码' : 'Input Text for UTF8 Encoding',
 		inputUtf8Decode: isChinese ? '输入UTF8进行解码' : 'Input UTF8 for Decoding',
-		selectFormat: isChinese ? '选择格式：' : 'Select Format:',
+		inputFormat: isChinese ? '输入格式' : 'Input Format:',
 	};
 }
 
-export default MToolsViewProvider;
+export default DeveloperToolsViewProvider;

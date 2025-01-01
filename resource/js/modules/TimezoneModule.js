@@ -1,50 +1,67 @@
 export class TimezoneModule {
     constructor({ selectId, formatSelectId }) {
         this.select = document.getElementById(selectId);
-        this.formatSelect = document.getElementById(formatSelectId);
+        this.formatInput = document.getElementById('formatInput');
         this.init();
     }
 
     init() {
-        if (this.select && this.formatSelect) {
+        if (this.select && this.formatInput) {
             this.select.addEventListener('change', this.updateTime.bind(this));
-            this.formatSelect.addEventListener('change', this.updateTime.bind(this));
+            this.formatInput.addEventListener('input', this.updateTime.bind(this));
             this.updateTime(); // 初始化时更新时间
             setInterval(this.updateTime.bind(this), 1000); // 每秒更新时间
         } else {
-            console.error('TimezoneModule: select or formatSelect element not found.');
+            console.error('TimezoneModule: select or formatInput element not found.');
         }
     }
 
+    formatDate(date, format) {
+        const pad = (num) => String(num).padStart(2, '0');
+        
+        const replacements = {
+            YYYY: date.getFullYear(),
+            MM: pad(date.getMonth() + 1),
+            DD: pad(date.getDate()),
+            HH: pad(date.getHours()),
+            mm: pad(date.getMinutes()),
+            ss: pad(date.getSeconds()),
+            M: date.getMonth() + 1,
+            D: date.getDate(),
+            H: date.getHours(),
+            m: date.getMinutes(),
+            s: date.getSeconds()
+        };
+
+        return format.replace(/YYYY|MM|DD|HH|mm|ss|M|D|H|m|s/g, match => replacements[match]);
+    }
+
     updateTime() {
-        if (!this.select || !this.formatSelect) {
-            console.error('TimezoneModule: select or formatSelect element not found during update.');
+        if (!this.select || !this.formatInput) {
+            console.error('TimezoneModule: select or formatInput element not found during update.');
             return;
         }
 
         const now = new Date();
         const timezone = this.select.value;
-        const format = this.formatSelect.value;
+        const format = this.formatInput.value;
         const timestampSeconds = Math.floor(now.getTime() / 1000);
         const timestampMilliseconds = now.getTime();
-        let formattedTime;
 
-        switch (format) {
-            case 'YYYY-MM-DD HH:mm:ss':
-                formattedTime = now.toLocaleString('zh-CN', { timeZone: timezone, hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).replace(/\//g, '-');
-                break;
-            case 'YYYY/MM/DD hh:mm:ss A':
-                formattedTime = now.toLocaleString('en-US', { timeZone: timezone, hour12: true, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                break;
-            case 'DD-MM-YYYY HH:mm':
-                formattedTime = now.toLocaleString('en-GB', { timeZone: timezone, hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).replace(/\//g, '-');
-                break;
-            case 'MM/DD/YYYY hh:mm A':
-                formattedTime = now.toLocaleString('en-US', { timeZone: timezone, hour12: true, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
-                break;
-            default:
-                formattedTime = now.toLocaleString('zh-CN', { timeZone: timezone, hour12: false });
-        }
+        // 使用 Intl.DateTimeFormat 获取指定时区的时间
+        const options = {
+            timeZone: timezone,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+
+        const tzDate = new Date(new Intl.DateTimeFormat('en-US', options).format(now));
+        const formattedTime = this.formatDate(tzDate, format);
 
         document.getElementById('timestampSeconds').innerText = timestampSeconds;
         document.getElementById('timestampMilliseconds').innerText = timestampMilliseconds;
