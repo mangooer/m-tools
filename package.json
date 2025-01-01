@@ -3,7 +3,7 @@
   "publisher": "mangooer",
   "displayName": "developer-tools",
   "description": "开发工具箱，时间戳，json，文本处理 | Development toolkit, timestamp, json, text processing",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.93.1"
   },
@@ -24,7 +24,7 @@
         {
           "id": "developerToolsContainer",
           "title": "Developer Tools",
-          "icon": "./resource/images/icon.png"
+          "icon": "resource/images/viewIcon.svg"
         }
       ]
     },
@@ -62,7 +62,7 @@
       {
         "id": "developerToolsContainer",
         "title": "Developer Tools",
-        "icon": "resource/images/icon.png"
+        "icon": "resource/images/viewIcon.svg"
       }
     ]
   },
@@ -86,5 +86,5 @@
     "url",
     "utf8"
   ],
-  "icon": "resource/images/icon.png"
+  "icon": "resource/images/shopIcon.png"
 }

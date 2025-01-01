@@ -1,6 +1,5 @@
 # Developer Tools
 
-![icon](resource/images/icon.png)
 
 这是 "Developer Tools" 扩展的 README 文件。该扩展提供了一系列工具，帮助开发者在 Visual Studio Code 中进行编码、解码、格式化等操作。
 本插件由AI生成，请勿用于商业用途。
